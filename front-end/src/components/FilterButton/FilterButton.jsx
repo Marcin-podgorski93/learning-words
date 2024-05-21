@@ -1,12 +1,12 @@
 import styles from "./FilterButton.module.css";
 
-export function FilterButton({ onClick, active, children }) {
-    return (
-        <button
-            onClick={onClick}
-            className={`${styles.button} ${active ? styles.active : ""}`}
-        >
-            {children}
-        </button>
-    );
+export function FilterButton({ children, onClick, active }) {
+  return (
+    <button
+      className={`${styles.button} ${active ? styles.active : ""}`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
 }
