@@ -23,6 +23,12 @@
       "translation": "car",
       "category": "noun",
       "id": 4
+    },
+    {
+      "word": "skakac",
+      "translation": "jump",
+      "category": "verb",
+      "id": 5
     }
   ]
 }

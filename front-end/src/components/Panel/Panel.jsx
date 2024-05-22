@@ -3,6 +3,8 @@ import { List } from "../List/List";
 import styles from "./Panel.module.css";
 import { Form } from "../Form/Form";
 import { FilterButton } from "../FilterButton/FilterButton";
+import { Info } from "../Info/Info";
+import { getCategoryInfo } from "../../utils/getCategoryInfo";
 
 export function Panel() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +20,8 @@ export function Panel() {
       });
   }, []);
 
+  const categoryInfo = getCategoryInfo(selectedCategory);
+
   function handleFormSubmit(formData) {
     fetch("http://localhost:3000/words", {
       method: "POST",
@@ -28,7 +32,9 @@ export function Panel() {
     })
       .then((res) => res.json())
       .then((res) => {
-        setData((prevValue) => [...prevValue, res]);
+        if (!selectedCategory || selectedCategory === res.category) {
+          setData((prevValue) => [...prevValue, res]);
+        }
       });
   }
 
@@ -45,6 +51,7 @@ export function Panel() {
     fetch(`http://localhost:3000/words${params}`)
       .then((res) => res.json())
       .then((res) => setData(res));
+    console.log(category);
     setSelectedCategory(category);
   }
 
@@ -54,6 +61,7 @@ export function Panel() {
         <p>Ładowanie</p>
       ) : (
         <section className={styles.section}>
+          <Info>{categoryInfo}</Info>
           <Form onFormSubmit={handleFormSubmit} />
           <div className={styles.filters}>
             <FilterButton
