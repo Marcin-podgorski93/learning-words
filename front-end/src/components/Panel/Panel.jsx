@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { List } from "../List/List";
 import styles from "./Panel.module.css";
 import { Form } from "../Form/Form";
@@ -20,7 +20,10 @@ export function Panel() {
       });
   }, []);
 
-  const categoryInfo = getCategoryInfo(selectedCategory);
+  const categoryInfo = useMemo(
+    () => getCategoryInfo(selectedCategory),
+    [selectedCategory]
+  );
 
   function handleFormSubmit(formData) {
     fetch("http://localhost:3000/words", {
